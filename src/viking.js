@@ -72,8 +72,8 @@ class War {
         const action = randomSaxon.receiveDamage(randomViking.attack());
 
         //remove any saxon whose health is less than 0
-        this.saxonArmy.forEach((saxon, i) => {
-            if(saxon.health <= 0){
+        this.saxonArmy.forEach((saxonElem, i) => {
+            if(saxonElem.health <= 0){
                 this.saxonArmy.splice(i,1)
             }
         })
@@ -81,8 +81,35 @@ class War {
         return action
     }
 
-    saxonAttack(){}
+    saxonAttack (){
+        const randomSaxon = this.saxonArmy[Math.floor(Math.random()*this.saxonArmy.length)]
+        const randomViking = this.vikingArmy[Math.floor(Math.random()*this.vikingArmy.length)]
+        const action = randomViking.receiveDamage(randomSaxon.attack());
 
-    showStatus(){}
+        //remove dead vkings
+        this.vikingArmy.forEach((vikingElem, i) => {
+            if(vikingElem.health <= 0){
+                this.vikingArmy.splice(i,1)
+            }
+        })
+
+        return action
+    }
+
+    
+
+    showStatus(){
+        if(this.saxonArmy.length === 0){
+            return 'Vikings have won the war of the century!'
+        }
+
+        else if(this.vikingArmy.length === 0){
+            return 'Saxons have fought for their lives and survived another day...'
+        }
+
+        else {
+            return 'Vikings and Saxons are still in the thick of battle.'
+        }
+    }
 }
 
