@@ -2,51 +2,45 @@
 class Soldier {
     constructor(health, strength){
         this.health = health;
-        this.strength = strength;
+        this.strength = strength
     }
-    
-    attack()
-    {return this.strength}
 
-    receiveDamage(damage) {
-        this.health = this.health - damage
+    attack (){
+        return this.strength
+    }
+
+    receiveDamage(damage){
+        this.health -= damage
     }
 }
 
 // Viking
-class Viking extends Soldier{
-    constructor (name, health, strength){
-        super (health, strength)
-        this.name = name
+class Viking extends Soldier {
+    constructor(name, health, strength){
+        super(health, strength)
+        this.name = name;
+        
     }
-    
-    attack(){return this.strength}
 
     receiveDamage(damage){
-        this.health = this.health - damage
+        this.health -= damage;
         if (this.health > 0){
             return `${this.name} has received ${damage} points of damage`
         }
-        else {
+        else{
             return `${this.name} has died in act of combat`
         }
     }
 
     battleCry(){
-        return `Odin Owns You All!`
+        return "Odin Owns You All!"
     }
-   
-    
 }
 
 // Saxon
-class Saxon extends Soldier{
-    attack(){
-        return this.strength
-    }
-
+class Saxon extends Soldier {
     receiveDamage(damage){
-        this.health = this.health - damage
+        this.health -= damage;
         if (this.health > 0){
             return `A Saxon has received ${damage} points of damage`
         }
@@ -58,26 +52,37 @@ class Saxon extends Soldier{
 
 // War
 class War {
-    vikingArmy = []
-    saxonArmy =  []
+    constructor(){
+        this.vikingArmy = [];
+        this.saxonArmy = []
+    }
 
-    addViking (viking){
+    addViking(viking){
         this.vikingArmy.push(viking)
     }
 
-    addSaxon (saxon){
+    addSaxon(saxon){
         this.saxonArmy.push(saxon)
     }
 
     vikingAttack(){
-        this.saxonArmy.receiveDamage() === this.vikingArmy.strength
+        //choose random saxon and viking and equals the damage to the random saxon the same as the strenght of the random viking
+        const randomSaxon = this.saxonArmy[Math.floor(Math.random()*this.saxonArmy.length)]
+        const randomViking = this.vikingArmy[Math.floor(Math.random()*this.vikingArmy.length)]
+        const action = randomSaxon.receiveDamage(randomViking.attack());
+
+        //remove any saxon whose health is less than 0
+        this.saxonArmy.forEach((saxon, i) => {
+            if(saxon.health <= 0){
+                this.saxonArmy.splice(i,1)
+            }
+        })
+
+        return action
     }
- 
- 
-    /*   addViking()
-    addSaxon()
-    vikingAttack()
-    saxonAttack()
-    showStatus()*/
- 
+
+    saxonAttack(){}
+
+    showStatus(){}
 }
+
