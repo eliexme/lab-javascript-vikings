@@ -5,6 +5,8 @@ class Soldier {
         this.strength = strength
     }
 
+    //changes done
+
     attack (){
         return this.strength
     }
